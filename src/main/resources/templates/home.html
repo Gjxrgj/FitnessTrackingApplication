@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+
+    <style>
+        /* Custom styles for the content */
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .content {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="appBar"></div>
+
+<div class="content">
+    <h2 class="text-center">Today: <span th:text="${day.getDate()}"></span></h2>
+
+    <!-- Workouts Section with Remove Buttons -->
+    <div class="mb-4">
+        <h4>Workouts</h4>
+        <ul class="list-group">
+            <li class="list-group-item" th:each="workout : ${day.getWorkouts()}">
+                <form th:action="@{/day/removeWorkout/{workoutID}(workoutID=${workout.wID})}" method="post">
+                    <input type="hidden" name="dayID" th:value="${day.dID}" />
+                    <span th:text="${workout.getName()}"></span>
+                    <button type="submit" class="btn btn-danger btn-sm float-right">
+                        Remove
+                    </button>
+                </form>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Meals Section with Remove Buttons -->
+    <div>
+        <h4>Meals</h4>
+        <ul class="list-group">
+            <li class="list-group-item" th:each="meal, mealIndex : ${day.getMeals()}">
+                <form th:action="@{/day/removeMeal/{mealID}(mealID=${meal.mID})}" method="post">
+                    <input type="hidden" name="dayID" th:value="${day.dID}" />
+                    <span th:text="${meal.getName()}"></span>
+                     (<span th:text="${meal.getCalories()}"></span>kcal)
+                    <button type="submit" class="btn btn-danger btn-sm float-right">
+                        Remove
+                    </button>
+                </form>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- Bootstrap JS and Popper.js (required for Bootstrap) -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

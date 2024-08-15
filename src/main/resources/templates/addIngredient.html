@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Ingredient</title>
+
+    <!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div th:replace="appBar"></div>
+
+<div class="container mt-4"> <!-- Add Bootstrap container class for spacing -->
+
+    <h2>Add Ingredient</h2>
+
+    <form th:action="@{/ingredients/addIngredient}" method="post" class="needs-validation" novalidate>
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+            <div class="invalid-feedback">Please enter a name.</div>
+        </div>
+
+        <div class="form-group">
+            <label for="calories">Calories per 100g:</label>
+            <input type="number" class="form-control" id="calories" name="calories" required>
+            <div class="invalid-feedback">Please enter calories.</div>
+        </div>
+
+        <div class="form-group">
+            <label for="protein">Protein per 100g:</label>
+            <input type="number" class="form-control" id="protein" name="protein" required>
+            <div class="invalid-feedback">Please enter protein.</div>
+        </div>
+
+        <div class="form-group">
+            <label for="carbs">Carbs per 100g:</label>
+            <input type="number" class="form-control" id="carbs" name="carbs" required>
+            <div class="invalid-feedback">Please enter carbs.</div>
+        </div>
+
+        <div class="form-group">
+            <label for="fats">Fats per 100g:</label>
+            <input type="number" class="form-control" id="fats" name="fats" required>
+            <div class="invalid-feedback">Please enter fats.</div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add Ingredient</button>
+    </form>
+
+</div>
+
+<!-- Add Bootstrap JS and Popper.js for certain Bootstrap features -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>

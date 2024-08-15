@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise List</title>
+    <!-- Add your CSS styles or link to an external stylesheet here -->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+</head>
+<body>
+
+<div th:replace="appBar"></div>
+<div class="container mt-4">
+    <h1 class="center">Exercises</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th th:if="${workoutID != null}">Add to Workout</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="exercise : ${exerciseList}">
+            <td th:text="${exercise.name}"></td>
+            <td th:text="${exercise.type}"></td>
+            <!-- Show the form only if workoutID is not null -->
+            <td th:if="${workoutID != null}">
+                <form action="/exercises/addExerciseToWorkout" method="post">
+                    <input type="hidden" name="workoutID" th:value="${workoutID}">
+                    <input type="hidden" name="exerciseID" th:value="${exercise.eID}">
+                    <div th:if="${exercise.getType().equalsIgnoreCase('bodybuilding')}" class="form-group">
+                        Reps: <input type="number" name="reps" class="form-control" required>
+                        Sets: <input type="number" name="sets" class="form-control" required>
+                        Weight(kg): <input type="number" name="weight" class="form-control" required>
+                    </div>
+                    <div th:if="${exercise.getType().equalsIgnoreCase('cardio')}" class="form-group">
+                        Time(min): <input type="number" name="time" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add to Workout</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/exercises/addExercise" class="btn btn-primary" role="button">Add Exercise</a><br>
+</div>
+
+<!-- Bootstrap JS and Popper.js (required for Bootstrap) -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>
